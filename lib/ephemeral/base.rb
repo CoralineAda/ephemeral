@@ -7,7 +7,7 @@ module Ephemeral
 
     def self.included(base)
       base.extend ClassMethods
-      base.send(:attr_accessor, :collection)
+      base.send(:attr_accessor, :collections)
     end
 
     module ClassMethods
@@ -15,10 +15,12 @@ module Ephemeral
       def collects(name, args={})
         class_name = args[:class_name] || name.to_s.classify
         self.send :define_method, name do
-          self.collection ||= Ephemeral::Collection.new(class_name)
+          self.collections ||= {}
+          self.collections[class_name] ||= Ephemeral::Collection.new(class_name)
         end
         self.send :define_method, "#{name}=" do |objects|
-          self.collection = Ephemeral::Collection.new(class_name, objects)
+          self.collections ||= {}
+          self.collections[class_name] = Ephemeral::Collection.new(class_name, objects)
         end
       end
 

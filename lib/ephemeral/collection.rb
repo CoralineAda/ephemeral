@@ -17,6 +17,10 @@ module Ephemeral
       self.objects && self.objects.each(&block)
     end
 
+    def empty?
+      self.objects.empty?
+    end
+
     def where(args={})
       return [] unless self.objects
       results = args.inject([]){|a,kv| a << self.objects.select{|o| o.send(kv[0]) == kv[1]}}

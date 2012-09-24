@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "ephemeral"
-  s.version = "1.1.0"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Corey Ehmke"]
-  s.date = "2012-09-11"
+  s.date = "2012-09-24"
   s.description = "Ephemeral lets you define one-to-many relationships between in-memory objects, with ORM-like support for where clauses and chainable scopes."
   s.email = "corey@idolhands.com"
   s.extra_rdoc_files = [
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/ephemeral.rb",
     "lib/ephemeral/base.rb",
     "lib/ephemeral/collection.rb",
+    "lib/ephemeral/relation.rb",
     "spec/ephemeral_spec.rb"
   ]
   s.homepage = "http://github.com/Bantik/ephemeral"

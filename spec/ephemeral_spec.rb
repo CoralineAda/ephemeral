@@ -44,12 +44,12 @@ describe Ephemeral do
     context 'collections' do
 
       it 'defines a collection' do
-        Collector.new.rarities.klass.should == Rarity
-        Collector.new.antiques.klass.should == Antique
+        Collector.collects[:rarities].klass.should == Rarity
+        Collector.collects[:antiques].klass.should == Antique
       end
 
       it 'accepts a class name' do
-        Collector.new.junk.klass.should == NotCollectible
+        Collector.collects[:junk].klass.should == NotCollectible
       end
 
       it 'creates a setter' do
@@ -79,12 +79,15 @@ describe Ephemeral do
 
     context 'relations' do
 
-      before :each do
-        @antique = Antique.new(:name => 'Model T Ford', :item_count => 1, :picker => {:name => "Mike Wolfe"} )
+      it 'initializes with a hash' do
+        antique = Antique.new(:name => 'Model T Ford', :item_count => 1, :picker => {:name => "Mike Wolfe"} )
+        antique.picker.name.should == "Mike Wolfe"
       end
 
       it 'initializes with a materialized object' do
-        @antique.picker.name.should == "Mike Wolfe"
+        picker = Picker.new(:name => 'Mike Wolfe')
+        antique = Antique.new(:name => 'Model T Ford', :item_count => 1, :picker => picker )
+        antique.picker.name.should == "Mike Wolfe"
       end
 
     end
@@ -122,6 +125,10 @@ describe Ephemeral do
           collector.rarities.count.should == 2
         end
 
+      end
+
+      it 'initializes with an empty array' do
+        Collector.new.rarities.should == []
       end
 
       it 'performs a where' do

@@ -7,21 +7,31 @@ module Ephemeral
 
     def self.included(base)
       base.extend ClassMethods
-      base.send(:attr_accessor, :collections, :relations)
+      base.send(:attr_accessor, :relations)
+      base.send(:attr_writer, :collections)
+    end
+
+    def collections
+      @collections ||= {}
     end
 
     module ClassMethods
 
-      def collects(name, args={})
+      def collects(name=nil, args={})
+        return @@collections unless name
         class_name = args[:class_name] || name.to_s.classify
+        @@collections ||= {}
+        @@collections[name] = Ephemeral::Collection.new(class_name)
+
         self.send :define_method, name do
-          self.collections ||= {}
           self.collections[class_name] ||= Ephemeral::Collection.new(class_name)
+          return [] if self.collections[class_name].empty?
+          self.collections[class_name]
         end
         self.send :define_method, "#{name}=" do |objects|
-          self.collections ||= {}
           self.collections[class_name] = Ephemeral::Collection.new(class_name, objects)
         end
+
       end
 
       def has_one(name, args={})

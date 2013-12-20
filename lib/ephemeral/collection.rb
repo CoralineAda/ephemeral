@@ -7,8 +7,8 @@ module Ephemeral
     attr_accessor :objects, :klass
 
     def initialize(klass, objects=[])
-      self.klass = eval(klass)
-      self.klass.scopes.each do |k, v|
+      self.klass = klass
+      eval(self.klass).scopes.each do |k, v|
         if v.is_a?(Proc)
           define_singleton_method(k, v) 
         else
@@ -31,7 +31,7 @@ module Ephemeral
       return [] unless self.objects
       results = args.inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v} }
       results = results.flatten.select {|r| results.flatten.count(r) == results.count }.uniq
-      Ephemeral::Collection.new(self.klass.name, results)
+      Ephemeral::Collection.new(self.klass, results)
     end
 
     def last
@@ -40,15 +40,15 @@ module Ephemeral
 
     def materialize(objects_array=[])
       return [] unless objects_array
-      return objects_array if objects_array && objects_array.first.class == self.klass
-      objects_array.map{|t| self.klass.new(t) }
+      return objects_array if objects_array && objects_array.first.class.name == self.klass
+      objects_array.map{|t| eval(self.klass).new(t) }
     end
 
     def execute_scope(method=nil)
       return Ephemeral::Collection.new(self.klass.name) unless self.objects
-      results = self.klass.scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }
+      results = eval(self.klass).scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }
       results = results.flatten.select {|r| results.flatten.count(r) == results.count }.uniq
-      Ephemeral::Collection.new(self.klass.name, results)
+      Ephemeral::Collection.new(self.klass, results)
     end
 
     def << (objekts)

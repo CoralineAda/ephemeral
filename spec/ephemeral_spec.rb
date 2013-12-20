@@ -44,12 +44,12 @@ describe Ephemeral do
     context 'collections' do
 
       it 'defines a collection' do
-        Collector.collects[:rarities].klass.should == Rarity
-        Collector.collects[:antiques].klass.should == Antique
+        Collector.collects[:rarities].klass.should == 'Rarity'
+        Collector.collects[:antiques].klass.should == 'Antique'
       end
 
       it 'accepts a class name' do
-        Collector.collects[:junk].klass.should == NotCollectible
+        Collector.collects[:junk].klass.should == 'NotCollectible'
       end
 
       it 'creates a setter' do

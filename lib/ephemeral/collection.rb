@@ -55,6 +55,14 @@ module Ephemeral
       self.objects += objekts
     end
 
+    def marshal_dump
+      [@klass, @objects]
+    end
+
+    def marshal_load(array=[])
+      @klass, @objects = array
+    end
+
   end
 
 end

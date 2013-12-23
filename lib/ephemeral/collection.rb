@@ -63,6 +63,16 @@ module Ephemeral
       @klass, @objects = array
     end
 
+    def method_missing(method_name, *arguments, &block)
+      scope = eval(self.klass).scopes[method_name]
+      super if scope.nil?
+      if scope.is_a?(Proc)
+        self.instance_eval(&scope)
+      else
+        execute_scope(method_name)
+      end
+    end
+
   end
 
 end

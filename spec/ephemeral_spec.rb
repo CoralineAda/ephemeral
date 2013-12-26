@@ -6,6 +6,7 @@ class Rarity
   scope :foos,      {:name => 'foo'}
   scope :paychecks, {:name => 'Paychecks'}
   scope :threes,    {:item_count => 3}
+  scope :by_name,   lambda{|name| where :name => name}
   def initialize(args={}); args.each{|k,v| self.send("#{k}=", v)}; end
 end
 
@@ -127,10 +128,6 @@ describe Ephemeral do
 
       end
 
-      it 'initializes with an empty array' do
-        Collector.new.rarities.should == []
-      end
-
       it 'performs a where' do
         @collector.rarities.where(:name => 'Paychecks').should_not be_blank
         @collector.antiques.where(:name => 'Trading Cards').should_not be_blank
@@ -148,6 +145,10 @@ describe Ephemeral do
 
         it 'chains scopes' do
           @collector.rarities.paychecks.threes.count.should == 1
+        end
+
+        it 'handle lambda scopes' do
+          @collector.rarities.by_name('Paychecks').count.should == 2
         end
 
       end

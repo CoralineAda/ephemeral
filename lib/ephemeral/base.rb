@@ -25,7 +25,6 @@ module Ephemeral
 
         self.send :define_method, name do
           self.collections[class_name] ||= Ephemeral::Collection.new(class_name)
-          return [] if self.collections[class_name].empty?
           self.collections[class_name]#.objects
         end
 

@@ -38,7 +38,7 @@ module Ephemeral
     end
 
     def materialize(objects_array=[])
-      return Ephemeral::Collection.new(self.klass.name) unless objects_array
+      return [] unless objects_array
       return objects_array if objects_array && objects_array.first.class.name == self.klass
       objects_array.map{|t| eval(self.klass).new(t) }
     end

@@ -24,7 +24,7 @@ module Ephemeral
         @@collections[name] = Ephemeral::Collection.new(class_name)
 
         self.send :define_method, name do
-          self.collections[class_name] ||= [] #Ephemeral::Collection.new(class_name)
+          self.collections[class_name] ||= Ephemeral::Collection.new(class_name)
           self.collections[class_name]#.objects
         end
 

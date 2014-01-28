@@ -44,7 +44,7 @@ module Ephemeral
     end
 
     def execute_scope(method=nil)
-      return Ephemeral::Collection.new(self.klass.name) unless self.objects
+      #return Ephemeral::Collection.new(self.klass.name) unless self.objects
       results = eval(self.klass).scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }
       results = results.flatten.select {|r| results.flatten.count(r) == results.count }.uniq
       Ephemeral::Collection.new(self.klass, results)

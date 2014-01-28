@@ -51,7 +51,7 @@ module Ephemeral
     end
 
     def << (objekts)
-      self.objects += objekts
+      self.objects << objekts
     end
 
     def marshal_dump

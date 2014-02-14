@@ -52,6 +52,7 @@ module Ephemeral
 
     def << (objekts)
       self.objects << objekts
+      self.objects.flatten!
     end
 
     def marshal_dump

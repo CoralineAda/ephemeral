@@ -28,8 +28,7 @@ module Ephemeral
     end
 
     def where(args={})
-      results = args.inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v} }
-      results = results.flatten.select {|r| results.flatten.count(r) == results.count }.uniq
+      results = args.inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v} }.flatten.uniq
       Ephemeral::Collection.new(self.klass, results)
     end
 
@@ -44,9 +43,7 @@ module Ephemeral
     end
 
     def execute_scope(method=nil)
-      #return Ephemeral::Collection.new(self.klass.name) unless self.objects
-      results = eval(self.klass).scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }
-      results = results.flatten.select {|r| results.flatten.count(r) == results.count }.uniq
+      results = eval(self.klass).scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }.flatten.uniq
       Ephemeral::Collection.new(self.klass, results)
     end
 

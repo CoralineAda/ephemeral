@@ -28,7 +28,7 @@ module Ephemeral
     end
 
     def where(args={})
-      results = args.inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v} }.flatten.uniq
+      results = args.inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v} }.flatten
       Ephemeral::Collection.new(self.klass, results)
     end
 
@@ -43,7 +43,7 @@ module Ephemeral
     end
 
     def execute_scope(method=nil)
-      results = eval(self.klass).scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }.flatten.uniq
+      results = eval(self.klass).scopes[method].inject([]) {|a, (k, v)| a << self.objects.select {|o| o.send(k) == v } }.flatten
       Ephemeral::Collection.new(self.klass, results)
     end
 

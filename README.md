@@ -1,9 +1,7 @@
 ephemeral
 =========
 
-Ephemeral was created at Trunk Club to bring ORM-like functionality to non-persisted objects. The anticipated use case is for an application that consumes an API and materializes one or more collections of objects from a JSON response or XML response.
-
-Please note that Ephemeral is currently in beta and is probably not ready for production use.
+Ephemeral brings ORM-like functionality to non-persisted objects. The anticipated use case is for an application that consumes an API and materializes one or more collections of objects from a JSON response or XML response. Another frequent use involves providing relations and scopes to POROs (plain old Ruby objects).
 
 Example the First
 =================

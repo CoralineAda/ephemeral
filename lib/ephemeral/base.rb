@@ -79,12 +79,17 @@ module Ephemeral
         class_variable_get("@@objects")
       end
 
+      def where(args={})
+        results = args.inject([]) {|a, (k, v)| a << objects.select {|o| o.send(k) == v[0]} }.flatten
+        Ephemeral::Collection.new(name, results)
+      end
+
       def attach_scopes
         scopes.each do |k, v|
           if v.is_a?(Proc)
             define_singleton_method(k, v)
           else
-            define_singleton_method k, lambda { self.execute_scope(k)}
+            define_singleton_method k, lambda { v }
           end
         end
       end

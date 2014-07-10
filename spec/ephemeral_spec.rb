@@ -54,15 +54,15 @@ describe Ephemeral do
       end
 
       it 'creates a setter' do
-        Collector.new.respond_to?(:rarities=).should be_true
+        Collector.new.respond_to?(:rarities=).should be_truthy
       end
 
       it 'creates a getter' do
-        Collector.new.respond_to?(:rarities).should be_true
+        Collector.new.respond_to?(:rarities).should be_truthy
       end
 
       it 'registers a scope' do
-        Rarity.scopes.include?(:by_name).should be_true
+        Rarity.scopes.include?(:by_name).should be_truthy
       end
 
     end
@@ -70,7 +70,7 @@ describe Ephemeral do
     context 'relations' do
 
       it 'defines a relation' do
-        Antique.new(:picker => {:name => 'Frank Fritz'}).picker.is_a?(Picker).should be_true
+        Antique.new(:picker => {:name => 'Frank Fritz'}).picker.is_a?(Picker).should be_truthy
       end
 
     end

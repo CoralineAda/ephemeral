@@ -80,7 +80,7 @@ module Ephemeral
       end
 
       def where(args={})
-        results = args.inject([]) {|a, (k, v)| a << objects.select {|o| o.send(k) == v[0]} }.flatten
+        results = args.inject([]) {|a, (k, v)| a << objects.select {|o| o.send(k) == v[0] || o.send(k) == v} }.flatten
         Ephemeral::Collection.new(name, results)
       end
 

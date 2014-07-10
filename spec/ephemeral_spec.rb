@@ -62,7 +62,7 @@ describe Ephemeral do
       end
 
       it 'registers a scope' do
-        Rarity.scopes.include?(:foos).should be_true
+        Rarity.scopes.include?(:by_name).should be_true
       end
 
     end

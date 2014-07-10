@@ -1,9 +1,7 @@
 ephemeral
 =========
 
-Ephemeral was created at Trunk Club to bring ORM-like functionality to non-persisted objects. The anticipated use case is for an application that consumes an API and materializes one or more collections of objects from a JSON response or XML response.
-
-Please note that Ephemeral is currently in beta and is probably not ready for production use.
+Ephemeral brings ORM-like functionality to non-persisted objects. The anticipated use case is for an application that consumes an API and materializes one or more collections of objects from a JSON response or XML response. Another frequent use involves providing relations and scopes to POROs (plain old Ruby objects).
 
 Example the First
 =================
@@ -19,7 +17,8 @@ Let's say that we have an API server that stores information about the invention
       scope :telegraphy,    {:category => 'Telegraphy'}
       scope :electrical,    {:category => 'Electrical'}
       scope :mechanical,    {:category => 'Mechanical'}
-      scope :stolen         {:stolen_by_edison => true }
+      scope :stolen,        {:stolen_by_edison => true }
+      scope :by_name,       lambda{|name| where :name => name}
 
       def initialize(args={})
         # Marshal object based on your API

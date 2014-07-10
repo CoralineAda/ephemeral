@@ -19,7 +19,8 @@ Let's say that we have an API server that stores information about the invention
       scope :telegraphy,    {:category => 'Telegraphy'}
       scope :electrical,    {:category => 'Electrical'}
       scope :mechanical,    {:category => 'Mechanical'}
-      scope :stolen         {:stolen_by_edison => true }
+      scope :stolen,        {:stolen_by_edison => true }
+      scope :by_name,       lambda{|name| where :name => name}
 
       def initialize(args={})
         # Marshal object based on your API

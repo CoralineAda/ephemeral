@@ -43,6 +43,10 @@ module Ephemeral
 
       end
 
+      def delete_all
+        class_variable_set(:@@objects, [])
+      end
+
       def has_one(name, args={})
         class_name = args[:class_name] || name.to_s.classify
         self.send :define_method, name do

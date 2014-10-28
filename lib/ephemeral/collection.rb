@@ -32,6 +32,10 @@ module Ephemeral
       Ephemeral::Collection.new(self.klass, results)
     end
 
+    def find(args={})
+      where(args).first
+    end
+
     def last
       self.objects.last
     end
@@ -64,7 +68,7 @@ module Ephemeral
     def attach_scopes
       eval(self.klass).scopes.each do |k, v|
         if v.is_a?(Proc)
-          define_singleton_method(k, v) 
+          define_singleton_method(k, v)
         else
           define_singleton_method k, lambda { self.execute_scope(k)}
         end

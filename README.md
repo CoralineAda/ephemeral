@@ -53,7 +53,7 @@ Now we can filter inventions on the consumer side:
 
     period = Period.where(:name => 'Early Years')
     inventions = period.inventions.mechanical
-    favorite = inventions.where(:name => 'Doomsday Device')
+    favorite = inventions.find(:name => 'Doomsday Device')
 
 More Examples?
 ==============

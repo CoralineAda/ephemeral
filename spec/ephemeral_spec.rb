@@ -119,8 +119,8 @@ describe Ephemeral do
           collector = Collector.new(
             :name => 'from_api',
             'rarities' => [
-              {'name' => 'foo'},
-              {'name' => 'bar'}
+              {name: 'foo'},
+              {name: 'bar'}
             ]
           )
           collector.rarities.count.should == 2
@@ -131,6 +131,10 @@ describe Ephemeral do
       it 'performs a where' do
         @collector.rarities.where(:name => 'Paychecks').should_not be_blank
         @collector.antiques.where(:name => 'Trading Cards').should_not be_blank
+      end
+
+      it 'performs a find' do
+        @collector.rarities.where(name: 'Paychecks').first.name.should eq "Paychecks"
       end
 
       describe 'scope method' do
